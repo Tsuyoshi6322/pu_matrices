@@ -8,20 +8,79 @@ class WymiaryMacierzy:
         self.iloscWierszy = iloscWierszy
 
 # Suma dwóch macierzy
-def sumaMacierzy():
-    print("sumaMacierzy")
+def sumaMacierzy(macierz1, macierz2):
+    # Wymiary obu macierzy muszą być takie same
+    if len(macierz1) != len(macierz2) or len(macierz1[0]) != len(macierz2[0]):
+        raise ValueError("Macierze muszą mieć takie same wymiary.")
+    
+    # Dodawanie elementów obu macierzy
+    wynik = [
+        [macierz1[i][j] + macierz2[i][j] for j in range(len(macierz1[0]))]
+        for i in range(len(macierz1))
+    ]
+
+    # Wyświetl wynik
+    try:
+        print("Suma macierzy:")
+        for wiersz in wynik:
+            print(wiersz)
+    except ValueError:
+        print("Macierze muszą mieć takie same wymiary.")
+
 
 # Różnica dwóch macierzy
-def roznicaMacierzy():
-    print("roznicaMacierzy")
+def roznicaMacierzy(macierz1, macierz2):
+    # Wymiary obu macierzy muszą być takie same
+    if len(macierz1) != len(macierz2) or len(macierz1[0]) != len(macierz2[0]):
+        raise ValueError("Macierze muszą mieć takie same wymiary.")
+    
+    # Odejmowanie elementów obu macierzy
+    wynik = [
+        [macierz1[i][j] - macierz2[i][j] for j in range(len(macierz1[0]))]
+        for i in range(len(macierz1))
+    ]
+
+    # Wyświetl wynik
+    try:
+        print("Różnica macierzy:")
+        for wiersz in wynik:
+            print(wiersz)
+    except ValueError:
+        print("Macierze muszą mieć takie same wymiary.")
 
 # Iloczyn dwóch macierzy
-def iloczynMacierzy():
-    print("iloczynMacierzy")
+def iloczynMacierzy(macierz1, macierz2):
+    # Liczba kolumn jednej macierzy musi być równa liczbie wierszy drugiej
+    if len(macierz1[0]) != len(macierz2):
+        raise ValueError("Liczba kolumn pierwszej macierzy musi być równa liczbie wierszy drugiej macierzy.")
+
+    # Mnożenie elementów obu macierzy
+    wynik = [
+        [
+            sum(macierz1[i][k] * macierz2[k][j] for k in range(len(macierz2)))
+            for j in range(len(macierz2[0]))
+        ]
+        for i in range(len(macierz1))
+    ]
+
+    # Wyświetl wynik
+    try:
+        print("Iloczyn macierzy:")
+        for wiersz in wynik:
+            print(wiersz)
+    except ValueError:
+        print("Liczba kolumn pierwszej macierzy musi być równa liczbie wierszy drugiej macierzy.")
 
 # Transpozycja jednej macierzy
-def transpozycjaMacierzy():
-    print("transpozycjaMacierzy")
+def transpozycjaMacierzy(macierz1):
+    wynik = [
+        [macierz1[i][j] for i in range(len(macierz1))]
+        for j in range(len(macierz1[0]))
+    ]
+
+    print("Macierz transponowana:")
+    for wiersz in wynik:
+        print(wiersz)
 
 # Zerowanie elementów głównej przekątnej danej macierzy
 def zerowanieElementow():
@@ -47,7 +106,7 @@ def czestoscWystepowania():
 def rozkladLU():
     print("rozkladLU")
 
-    
+
 
 # Zarządzanie inputem użytkownika
 def getValidInput(prompt):
@@ -72,8 +131,11 @@ def tworzenieMacierzy():
     print(f"Macierz ma wymiary {wymiary.iloscKolumn}x{wymiary.iloscWierszy}") # log
 
     # Wypełnienie macierzy o wymiarach n x m losowymi liczbami <1,100>
-    macierz = [[random.randint(1, 100) for _ in range(wymiary.iloscKolumn)] for _ in range(wymiary.iloscWierszy)]
-    
+    macierz = [
+        [random.randint(1, 100) for _ in range(wymiary.iloscKolumn)]
+        for _ in range(wymiary.iloscWierszy)
+    ]
+
     # Wyświetl wygenerowaną macierz
     print("Wygenerowana macierz:") 
     for wiersz in macierz:
@@ -100,7 +162,7 @@ def displayMenu():
         choice = getValidInput("Proszę podać liczbę (1-10): ")
 
         if 1 <= choice <= 10:
-            print(f"Wybrano: {choice}")
+            print(f"Wybrano zadanie {choice}")
             return choice
         else:
             print("Nie ma takiego zadania!")
@@ -116,23 +178,18 @@ if choice < 4:
 
 # Egzekucja wybranego zadania
 def taskChoice():
-    dispatch = {
-        1: partial(sumaMacierzy),
-        2: partial(roznicaMacierzy),
-        3: partial(iloczynMacierzy),
-        4: partial(transpozycjaMacierzy),
-        5: partial(zerowanieElementow),
-        6: partial(iloczynOdwrotnosci),
-        7: partial(sredniaArytmetyczna),
-        8: partial(sredniaGeometryczna),
-        9: partial(czestoscWystepowania),
-        10: partial(rozkladLU)
-    }
-
-    if choice in dispatch:
-        dispatch[choice]()
-    else:
-        print("Nie ma takiego zadania!")
+    match choice:
+        case 1: sumaMacierzy(macierz1,macierz2)
+        case 2: roznicaMacierzy(macierz1,macierz2)
+        case 3: iloczynMacierzy(macierz1,macierz2)
+        case 4: transpozycjaMacierzy(macierz1)
+        case 5: zerowanieElementow()
+        case 6: iloczynOdwrotnosci()
+        case 7: sredniaArytmetyczna()
+        case 8: sredniaGeometryczna()
+        case 9: czestoscWystepowania()
+        case 10: rozkladLU()
+        case _: print("Nie ma takiego zadania!")
 
 taskChoice()
 
