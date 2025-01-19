@@ -1,6 +1,7 @@
 from functools import partial
 from collections import defaultdict
 from tabulate import tabulate
+import numpy as np
 import random
 
 
@@ -169,8 +170,31 @@ def czestoscWystepowania(macierz1):
     print(tabulate(tableData_sorted, headers=["Element", "Ilość"], tablefmt="grid"))
 
 # Rozklad LU metodą Dolittle'a
-def rozkladLU(macierz1):
-    print("rozkladLU")
+def rozkladLU(wymiary1, macierz1):
+    # Ilość kolumn macierzy musi być równa ilości jej wierszy
+    if wymiary1.iloscKolumn != wymiary1.iloscWierszy:
+        print("Ilość kolumn macierzy musi być równa ilości wierszy")
+
+    n = len(macierz1)
+
+    # Macierze sterujące
+    L = np.zeros((n, n))
+    U = np.zeros((n, n))
+
+    for i in range(n):
+        # Elementy macierzy U
+        for j in range(i, n):
+            U[i][j] = macierz1[i][j] - sum(L[i][k] * U[k][j] for k in range(i))
+
+        # Elementy macierzy L
+        for j in range(i, n):
+            if i == j:
+                L[i][i] = 1
+            else:
+                L[j][i] = (macierz1[j][i] - sum(L[j][k] * U[k][i] for k in range(i))) / U[i][i]
+    
+    print("Macierz L:\n", L)
+    print("Macierz U:\n", U)    
 
 
 # Zarządzanie inputem użytkownika
@@ -253,7 +277,7 @@ def taskChoice():
         case 7: sredniaArytmetyczna(macierz1)
         case 8: sredniaGeometryczna(macierz1)
         case 9: czestoscWystepowania(macierz1)
-        case 10: rozkladLU(macierz1)
+        case 10: rozkladLU(wymiary1, macierz1)
         case _: print("Nie ma takiego zadania!")
 
 taskChoice()
