@@ -177,7 +177,7 @@ def rozkladLU(wymiary1, macierz1):
 
     n = len(macierz1)
 
-    # Macierze sterujące
+    # Macierze sterujące, pełne zer
     L = np.zeros((n, n))
     U = np.zeros((n, n))
 
@@ -236,8 +236,6 @@ def tworzenieMacierzy():
 # Pierwsza macierz
 wymiary1, macierz1 = tworzenieMacierzy()
 
-
-
 # Menu zadań
 def displayMenu():
     while True:
@@ -245,7 +243,16 @@ def displayMenu():
         ===================================================
                             Menu zadań                     
         ===================================================
-            [1] Zadania 1.1-7    Własności liczby a       
+            [1]  Suma dwóch macierzy
+            [2]  Różnica dwóch macierzy
+            [3]  Iloczyn dwóch macierzy
+            [4]  Transpozycja macierzy
+            [5]  Zerowanie elementów w głównej przekątnej
+            [6]  Iloczyn odwrotności niezerowych elementów
+            [7]  Średnia arytmetyczna elementów
+            [8]  Średnia geometryczna elementów
+            [9]  Częstotliwość występowania każdej wartości
+            [10] Rozkład LU metodą Doolittle'a
         ===================================================\n""")
 
         choice = getValidInput("Proszę podać liczbę (1-10): ")
@@ -264,7 +271,6 @@ if choice < 4:
     wymiary2, macierz2 = tworzenieMacierzy()
 
 
-
 # Egzekucja wybranego zadania
 def taskChoice():
     match choice:
@@ -281,14 +287,6 @@ def taskChoice():
         case _: print("Nie ma takiego zadania!")
 
 taskChoice()
-
-
-
-
-
-
-
-
 
 # Koniec programu
 print("""
