@@ -1,11 +1,15 @@
 from functools import partial
+from collections import defaultdict
+from tabulate import tabulate
 import random
+
 
 # Definicja wymiarów macierzy
 class WymiaryMacierzy:
     def __init__(self, iloscKolumn, iloscWierszy):
         self.iloscKolumn = iloscKolumn
         self.iloscWierszy = iloscWierszy
+
 
 # Suma dwóch macierzy
 def sumaMacierzy(macierz1, macierz2):
@@ -48,6 +52,7 @@ def roznicaMacierzy(macierz1, macierz2):
     except ValueError:
         print("Macierze muszą mieć takie same wymiary.")
 
+
 # Iloczyn dwóch macierzy
 def iloczynMacierzy(macierz1, macierz2):
     # Liczba kolumn jednej macierzy musi być równa liczbie wierszy drugiej
@@ -71,6 +76,7 @@ def iloczynMacierzy(macierz1, macierz2):
     except ValueError:
         print("Liczba kolumn pierwszej macierzy musi być równa liczbie wierszy drugiej macierzy.")
 
+
 # Transpozycja jednej macierzy
 def transpozycjaMacierzy(macierz1):
     wynik = [
@@ -78,34 +84,93 @@ def transpozycjaMacierzy(macierz1):
         for j in range(len(macierz1[0]))
     ]
 
+    # Wyświetl wynik
     print("Macierz transponowana:")
     for wiersz in wynik:
         print(wiersz)
 
+
 # Zerowanie elementów głównej przekątnej danej macierzy
-def zerowanieElementow():
-    print("zerowanieElementow")
+def zerowanieElementow(macierz1):
+    wynik = macierz1
+    for i in range(min(len(wynik), len(wynik[0]))): 
+        wynik[i][i] = 0
+
+    # Wyświetl wynik
+    print("Macierz z wyzerowanymi elementami:")
+    for wiersz in wynik:
+        print(wiersz)
+
 
 # Iloczyn odwrotności wszystkich niezerowych elementów
-def iloczynOdwrotnosci():
-    print("iloczynOdwrotnosci")
+def iloczynOdwrotnosci(macierz1):
+    # Zmienna sterująca
+    iloczynWartosci = 1
+
+    # Iloczyn zmiennej z odwrotnością elementu macierzy
+    for wiersz in macierz1:
+        for element in wiersz:
+            if element != 0:
+                iloczynWartosci *= 1 / element
+    
+    # Wyświetl wynik
+    print("Iloczyn odwrotności wszystkich niezerowych elementów: ", iloczynWartosci)
+
 
 # Średnia arytmetyczna podanych liczb
-def sredniaArytmetyczna():
-    print("sredniaArytmetyczna")
+def sredniaArytmetyczna(macierz1):
+    # Zmienne sterujące 
+    sumaElementow = 0
+    liczbaElementow = 0
+
+    # Przejdź przez wszystkie elementy macierzy
+    for wiersz in macierz1:
+        for element in wiersz:
+            sumaElementow += element # Dodaj element do sumy
+            liczbaElementow += 1 # Licz kolejno liczbę elementów
+
+    # Wyświetl wynik
+    if liczbaElementow == 0:
+        wynik = 0
+    else:
+        wynik = sumaElementow / liczbaElementow
+
+    print("Średnia arytmetyczna elementów macierzy: ", wynik)
+    
 
 # Średnia geometryczna wartości bezwzględnej podanych liczb
-def sredniaGeometryczna():
-    print("sredniaGeometryczna")
+def sredniaGeometryczna(macierz1):
+    # Zmienne sterujące
+    iloczynElementow = 1
+    liczbaElementow = 0
+
+    for wiersz in macierz1:
+        for element in wiersz:
+            iloczynElementow *= element
+            liczbaElementow += 1
+    
+    # Wyświetl wynik
+    wynik = iloczynElementow ** (1 / liczbaElementow)
+    print("Średnia geometryczna elementów macierzy: ", wynik)
+
 
 # Częstotliwość występowania każdej wartości
-def czestoscWystepowania():
-    print("czestoscWystepowania")
+def czestoscWystepowania(macierz1):
+    # Słownik sterujący, pełen zer
+    czestotliwosc = defaultdict(int)
+
+    for wiersz in macierz1:
+        for element in wiersz:
+            czestotliwosc[element] += 1
+
+    # Wyświetl wynik w tabeli, posortowanej
+    tableData = [(key, value) for key, value in czestotliwosc.items()]
+    tableData_sorted = sorted(tableData, key=lambda x: x[1], reverse=True)
+    print(tabulate(tableData_sorted, headers=["Element", "Ilość"], tablefmt="grid"))
 
 # Rozklad LU metodą Dolittle'a
-def rozkladLU():
+def rozkladLU(macierz1):
     print("rozkladLU")
-
 
 
 # Zarządzanie inputem użytkownika
@@ -183,12 +248,12 @@ def taskChoice():
         case 2: roznicaMacierzy(macierz1,macierz2)
         case 3: iloczynMacierzy(macierz1,macierz2)
         case 4: transpozycjaMacierzy(macierz1)
-        case 5: zerowanieElementow()
-        case 6: iloczynOdwrotnosci()
-        case 7: sredniaArytmetyczna()
-        case 8: sredniaGeometryczna()
-        case 9: czestoscWystepowania()
-        case 10: rozkladLU()
+        case 5: zerowanieElementow(macierz1)
+        case 6: iloczynOdwrotnosci(macierz1)
+        case 7: sredniaArytmetyczna(macierz1)
+        case 8: sredniaGeometryczna(macierz1)
+        case 9: czestoscWystepowania(macierz1)
+        case 10: rozkladLU(macierz1)
         case _: print("Nie ma takiego zadania!")
 
 taskChoice()
