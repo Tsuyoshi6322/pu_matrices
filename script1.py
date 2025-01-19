@@ -1,61 +1,78 @@
 from functools import partial
+import random
 
-# Główne działanie programu
+# Definicja wymiarów macierzy
 class WymiaryMacierzy:
     def __init__(self, iloscKolumn, iloscWierszy):
         self.iloscKolumn = iloscKolumn
         self.iloscWierszy = iloscWierszy
 
+# Suma dwóch macierzy
 def sumaMacierzy():
-    print("Suma dwoch macierzy")
+    print("sumaMacierzy")
 
+# Różnica dwóch macierzy
 def roznicaMacierzy():
-    print("Roznica dwoch macierzy")
+    print("roznicaMacierzy")
 
+# Iloczyn dwóch macierzy
 def iloczynMacierzy():
-    print("Iloczyn dwoch Macierzy")
+    print("iloczynMacierzy")
 
+# Transpozycja jednej macierzy
 def transpozycjaMacierzy():
-    print("Transpozycja jednej macierzy")
+    print("transpozycjaMacierzy")
 
+# Zerowanie elementów głównej przekątnej danej macierzy
 def zerowanieElementow():
-    print("""Zerowanie elementow na glownej 
-    przekatnej danej macierzy""")
+    print("zerowanieElementow")
 
+# Iloczyn odwrotności wszystkich niezerowych elementów
 def iloczynOdwrotnosci():
-    print("""Iloczyn odwrotnosci wszystkich 
-    niezerowych elementow""")
+    print("iloczynOdwrotnosci")
 
+# Średnia arytmetyczna podanych liczb
 def sredniaArytmetyczna():
-    print("Srednia arytmetyczna podanych liczb")
+    print("sredniaArytmetyczna")
 
+# Średnia geometryczna wartości bezwzględnej podanych liczb
 def sredniaGeometryczna():
-    print("Srednia geometryczna podanych liczb")
+    print("sredniaGeometryczna")
 
+# Częstotliwość występowania każdej wartości
 def czestoscWystepowania():
-    print("Czestotliwosc wystepowania kazdej wartosci")
+    print("czestoscWystepowania")
 
+# Rozklad LU metodą Dolittle'a
 def rozkladLU():
-    print("Rozklad LU metoda Dolittle'a")
+    print("rozkladLU")
 
 # Zarządzanie inputem użytkownika
 def getValidInput(prompt):
     while True:
         try:
             value = int(input(prompt))
-            return value
+            if value > 0:
+                return value
+            else:
+                print("Podaj liczbę dodatnią!")
         except ValueError:
             print("Podaj liczbę całkowitą!")
 
-# podanie wymiarow macierzy      
-print("Proszę podać wymiary macierzy: ")
-wymiary = WymiaryMacierzy(0,0) # reset
+# Ustalenie wymiarów macierzy (n x m) i wypełnienie jej    
+print("Proszę podać wymiary macierzy: ")                                  # input
+wymiary = WymiaryMacierzy(0,0)                                            # reset
+wymiary.iloscKolumn = getValidInput("Podaj ilość kolumn: ")               # set n
+wymiary.iloscWierszy = getValidInput("Podaj ilość wierszy: ")             # set m
+print(f"Macierz ma wymiary {wymiary.iloscKolumn}x{wymiary.iloscWierszy}") # log
 
-wymiary.iloscKolumn = getValidInput("Podaj ilość kolumn: ")
-wymiary.iloscWierszy = getValidInput("Podaj ilość wierszy: ")
+# Wypełnienie macierzy o wymiarach n x m losowymi liczbami <1,100>
+macierz = [[random.randint(1, 100) for _ in range(wymiary.iloscKolumn)] for _ in range(wymiary.iloscWierszy)]
+print("Wygenerowana macierz:") # Wyświetl wygenerowaną macierz
+for wiersz in macierz:
+    print(wiersz)
 
-print(f"Macierz ma wymiary {wymiary.iloscKolumn}x{wymiary.iloscWierszy}")
-
+# Menu zadań
 def displayMenu():
     while True:
         print("""
@@ -76,6 +93,7 @@ def displayMenu():
             
 choice = displayMenu()
 
+# Ustalenie wymiarów drugiej macierzy dla zadań 1-3
 if choice < 4:
     print("Proszę podać wymiary drugiej macierzy:")
 
@@ -86,6 +104,7 @@ if choice < 4:
 
     print(f"Druga macierz ma wymiary {wymiary2.iloscKolumn}x{wymiary2.iloscWierszy}")
 
+# Egzekucja wybranego zadania
 def taskChoice():
     dispatch = {
         1: partial(sumaMacierzy),
@@ -107,6 +126,15 @@ def taskChoice():
 
 taskChoice()
 
+
+
+
+
+
+
+
+
+# Koniec programu
 print("""
         ===================================================
                         Koniec programu                    
