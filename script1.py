@@ -47,6 +47,8 @@ def czestoscWystepowania():
 def rozkladLU():
     print("rozkladLU")
 
+    
+
 # Zarządzanie inputem użytkownika
 def getValidInput(prompt):
     while True:
@@ -59,18 +61,31 @@ def getValidInput(prompt):
         except ValueError:
             print("Podaj liczbę całkowitą!")
 
-# Ustalenie wymiarów macierzy (n x m) i wypełnienie jej    
-print("Proszę podać wymiary macierzy: ")                                  # input
-wymiary = WymiaryMacierzy(0,0)                                            # reset
-wymiary.iloscKolumn = getValidInput("Podaj ilość kolumn: ")               # set n
-wymiary.iloscWierszy = getValidInput("Podaj ilość wierszy: ")             # set m
-print(f"Macierz ma wymiary {wymiary.iloscKolumn}x{wymiary.iloscWierszy}") # log
 
-# Wypełnienie macierzy o wymiarach n x m losowymi liczbami <1,100>
-macierz = [[random.randint(1, 100) for _ in range(wymiary.iloscKolumn)] for _ in range(wymiary.iloscWierszy)]
-print("Wygenerowana macierz:") # Wyświetl wygenerowaną macierz
-for wiersz in macierz:
-    print(wiersz)
+
+# Ustalenie wymiarów macierzy (n x m) i wypełnienie jej    
+def tworzenieMacierzy():
+    print("Proszę podać wymiary macierzy: ")                                  # input
+    wymiary = WymiaryMacierzy(0,0)                                            # reset
+    wymiary.iloscKolumn = getValidInput("Podaj ilość kolumn: ")               # set n
+    wymiary.iloscWierszy = getValidInput("Podaj ilość wierszy: ")             # set m
+    print(f"Macierz ma wymiary {wymiary.iloscKolumn}x{wymiary.iloscWierszy}") # log
+
+    # Wypełnienie macierzy o wymiarach n x m losowymi liczbami <1,100>
+    macierz = [[random.randint(1, 100) for _ in range(wymiary.iloscKolumn)] for _ in range(wymiary.iloscWierszy)]
+    
+    # Wyświetl wygenerowaną macierz
+    print("Wygenerowana macierz:") 
+    for wiersz in macierz:
+        print(wiersz)
+
+    # Zwrócenie wartości w celu ponownego użycia
+    return wymiary, macierz
+
+# Pierwsza macierz
+wymiary1, macierz1 = tworzenieMacierzy()
+
+
 
 # Menu zadań
 def displayMenu():
@@ -95,14 +110,9 @@ choice = displayMenu()
 
 # Ustalenie wymiarów drugiej macierzy dla zadań 1-3
 if choice < 4:
-    print("Proszę podać wymiary drugiej macierzy:")
+    wymiary2, macierz2 = tworzenieMacierzy()
 
-    wymiary2 = WymiaryMacierzy(0,0)
 
-    wymiary2.iloscKolumn = getValidInput("Podaj ilość kolumn: ")
-    wymiary2.iloscWierszy = getValidInput("Podaj ilość wierszy: ")
-
-    print(f"Druga macierz ma wymiary {wymiary2.iloscKolumn}x{wymiary2.iloscWierszy}")
 
 # Egzekucja wybranego zadania
 def taskChoice():
