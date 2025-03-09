@@ -1,7 +1,7 @@
-# Matrices-P
-Matrices-Project
+# Uni Project - Matrices
+---
 
-# What's that?
+## What's that?
 ### Short answer
 (Not so) mandatory uni project - programming classes from my first year (2024-2025).
 
@@ -19,8 +19,10 @@ The operations to perform:
 - Frequency of occurence (a table) of each value in the matrix
 - LU decomposition using Doolittle's method
 
-# What's the 'unused' folder for?
-Well, as the name suggests, it contains useless files. At first, the plan was to write this program in C++. After writing the body of the program (basically menus and placeholder functions) I switched to Python to practice this language a little more.
+## What's the 'unused' folder for?
+Well, as the name suggests, it contains useless files. 
+At first, the plan was to write this program in C++. 
 
-# Why is everything in a single file?
-It was easier to put this in the report for classes. But honestly I hadn't put much thought into it and it could've been divided into several files (at least operations.py, menu.py and main files)
+After writing the body of the program (basically menus and placeholder functions) I switched to Python to practice this language a little more.
+
+The folder .old_files contains the C++ file and the previous version of the Python file.
