@@ -14,6 +14,7 @@ The operations to perform:
 - Multiplication product of two matrices
 - Transposition of a single matrix
 - Zeroing the elements on the main diagonal of the matrix
+- Product of the inverses of the non-zero elements of a matrix
 - Arithmetic mean of all values in the matrix
 - Geometric mean of all values in the matrix
 - Frequency of occurence (a table) of each value in the matrix
